@@ -1,6 +1,6 @@
 # Local Medical Data Analysis with Jupyter Notebooks
 
-This repository contains two educational Jupyter notebooks designed to teach medical students data analysis techniques using secure, local computing environments. Students will learn both traditional data science methods and modern AI-powered analysis while keeping all data private and secure on their local machines.
+This repository contains two educational Jupyter notebooks designed to teach medical students (and others without coding knowledge) data analysis techniques using secure, local computing environments. Students will learn both traditional data science methods and modern AI-powered analysis while keeping all data private and secure on their local machines.
 
 ## Table of Contents
 1. [Why Use This Repository?](#why-use-this-repository)
