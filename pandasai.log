@@ -3187,3 +3187,349 @@ result = {'type': 'plot', 'value': 'exports/charts/temp_chart_0522faf3-7d2f-4f4c
 2025-07-27 09:21:14 [WARNING] No such comm: 4e8566a3ca724dba8cff1eb451ab4138
 2025-07-27 09:21:14 [WARNING] No such comm: 4e8566a3ca724dba8cff1eb451ab4138
 2025-07-27 09:21:18 [WARNING] No such comm: 4e8566a3ca724dba8cff1eb451ab4138
+2025-07-27 16:01:34 [INFO] Question: What is the mean glucose for men?
+2025-07-27 16:01:34 [INFO] Running PandasAI with litellm LLM...
+2025-07-27 16:01:34 [INFO] Prompt ID: 085bc29e-e29b-4e16-9827-06e37c93650d
+2025-07-27 16:01:34 [INFO] Generating new code...
+2025-07-27 16:01:34 [INFO] Using Prompt: <tables>
+
+<table dialect="duckdb" table_name="table_predictdm" columns="[{"name": "Cholesterol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Glucose", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "HDL Chol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Chol/HDL ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Age", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Gender", "type": "string", "description": null, "expression": null, "alias": null}, {"name": "Height", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Weight", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "BMI", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Systolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Diastolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "waist", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "hip", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Waist/hip ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Diabetes", "type": "string", "description": null, "expression": null, "alias": null}]" dimensions="390x15">
+Cholesterol,Glucose,HDL Chol,Chol/HDL ratio,Age,Gender,Height,Weight,BMI,Systolic BP,Diastolic BP,waist,hip,Waist/hip ratio,Diabetes
+194,86,67,2.9,35,male,66,159,25.7,115,64,31,35,0.89,No diabetes
+158,74,64,2.5,30,female,62,142,26.0,108,68,32,34,0.94,No diabetes
+203,71,78,2.6,45,male,66,115,18.6,135,88,30,34,0.88,No diabetes
+160,82,41,3.9,30,female,63,143,25.3,172,124,33,40,0.83,No diabetes
+155,81,70,2.2,32,female,65,151,25.1,120,68,33,40,0.83,No diabetes
+</table>
+
+
+</tables>
+
+You are already provided with the following functions that you can call:
+<function>
+def execute_sql_query(sql_query: str) -> pd.Dataframe
+    """This method connects to the database, executes the sql query and returns the dataframe"""
+</function>
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ What is the mean glucose for men?
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+
+Generate python code and return full updated code:
+
+### Note: Use only relevant table for query and do aggregation, sorting, joins and grouby through sql query
+2025-07-27 16:01:34 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:04:26 [INFO] HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-27 16:04:26 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:04:26 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:04:26 [INFO] Code Generated:
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+sql_query = """
+SELECT AVG(Glucose) AS mean_glucose
+FROM table_predictdm
+WHERE Gender = 'male'
+"""
+result_df = execute_sql_query(sql_query)
+mean_glucose = result_df.iloc[0]['mean_glucose']
+
+# Declare result var: 
+result = {
+    "type": "number",
+    "value": mean_glucose
+}
+2025-07-27 16:04:26 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:04:26 [INFO] Validating code requirements...
+2025-07-27 16:04:26 [INFO] Code validation successful.
+2025-07-27 16:04:26 [INFO] Cleaning the generated code...
+2025-07-27 16:04:26 [INFO] Executing code: import pandas as pd
+sql_query = """
+SELECT AVG(Glucose) AS mean_glucose
+FROM table_predictdm
+WHERE Gender = 'male'
+"""
+result_df = execute_sql_query(sql_query)
+mean_glucose = result_df.iloc[0]['mean_glucose']
+result = {'type': 'number', 'value': mean_glucose}
+2025-07-27 16:04:26 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:04:28 [INFO] Response generated successfully.
+2025-07-27 16:15:04 [INFO] Question: What is the mean glucose for women?
+2025-07-27 16:15:04 [INFO] Running PandasAI with litellm LLM...
+2025-07-27 16:15:04 [INFO] Prompt ID: 0a3f7a3d-017d-4aff-a334-742df301ff2f
+2025-07-27 16:15:04 [INFO] Generating new code...
+2025-07-27 16:15:04 [INFO] Using Prompt: <tables>
+
+<table dialect="duckdb" table_name="table_predictdm" columns="[{"name": "Cholesterol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Glucose", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "HDL Chol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Chol/HDL ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Age", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Gender", "type": "string", "description": null, "expression": null, "alias": null}, {"name": "Height", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Weight", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "BMI", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Systolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Diastolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "waist", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "hip", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Waist/hip ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Diabetes", "type": "string", "description": null, "expression": null, "alias": null}]" dimensions="390x15">
+Cholesterol,Glucose,HDL Chol,Chol/HDL ratio,Age,Gender,Height,Weight,BMI,Systolic BP,Diastolic BP,waist,hip,Waist/hip ratio,Diabetes
+194,86,67,2.9,35,male,66,159,25.7,115,64,31,35,0.89,No diabetes
+158,74,64,2.5,30,female,62,142,26.0,108,68,32,34,0.94,No diabetes
+203,71,78,2.6,45,male,66,115,18.6,135,88,30,34,0.88,No diabetes
+160,82,41,3.9,30,female,63,143,25.3,172,124,33,40,0.83,No diabetes
+155,81,70,2.2,32,female,65,151,25.1,120,68,33,40,0.83,No diabetes
+</table>
+
+
+</tables>
+
+You are already provided with the following functions that you can call:
+<function>
+def execute_sql_query(sql_query: str) -> pd.Dataframe
+    """This method connects to the database, executes the sql query and returns the dataframe"""
+</function>
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ What is the mean glucose for women?
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+
+Generate python code and return full updated code:
+
+### Note: Use only relevant table for query and do aggregation, sorting, joins and grouby through sql query
+2025-07-27 16:15:04 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:17:49 [INFO] HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-27 16:17:49 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:17:49 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:17:49 [INFO] Code Generated:
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+sql_query = """
+SELECT AVG(Glucose) AS mean_glucose 
+FROM table_predictdm 
+WHERE Gender = 'female'
+"""
+
+result_df = execute_sql_query(sql_query)
+mean_glucose = result_df.iloc[0, 0]
+
+# Declare result var: 
+result = {
+    "type": "number",
+    "value": mean_glucose
+}
+2025-07-27 16:17:49 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:17:49 [INFO] Validating code requirements...
+2025-07-27 16:17:49 [INFO] Code validation successful.
+2025-07-27 16:17:49 [INFO] Cleaning the generated code...
+2025-07-27 16:17:49 [INFO] Executing code: import pandas as pd
+sql_query = """
+SELECT AVG(Glucose) AS mean_glucose 
+FROM table_predictdm 
+WHERE Gender = 'female'
+"""
+result_df = execute_sql_query(sql_query)
+mean_glucose = result_df.iloc[0, 0]
+result = {'type': 'number', 'value': mean_glucose}
+2025-07-27 16:17:49 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:17:50 [INFO] Response generated successfully.
+2025-07-27 16:22:54 [INFO] Question: Plot age distribution
+2025-07-27 16:22:54 [INFO] Running PandasAI with litellm LLM...
+2025-07-27 16:22:54 [INFO] Prompt ID: 11419c1d-7244-4411-a6dd-355eb95a18b4
+2025-07-27 16:22:54 [INFO] Generating new code...
+2025-07-27 16:22:54 [INFO] Using Prompt: <tables>
+
+<table dialect="duckdb" table_name="table_predictdm" columns="[{"name": "Cholesterol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Glucose", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "HDL Chol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Chol/HDL ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Age", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Gender", "type": "string", "description": null, "expression": null, "alias": null}, {"name": "Height", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Weight", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "BMI", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Systolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Diastolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "waist", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "hip", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Waist/hip ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Diabetes", "type": "string", "description": null, "expression": null, "alias": null}]" dimensions="390x15">
+Cholesterol,Glucose,HDL Chol,Chol/HDL ratio,Age,Gender,Height,Weight,BMI,Systolic BP,Diastolic BP,waist,hip,Waist/hip ratio,Diabetes
+194,86,67,2.9,35,male,66,159,25.7,115,64,31,35,0.89,No diabetes
+158,74,64,2.5,30,female,62,142,26.0,108,68,32,34,0.94,No diabetes
+203,71,78,2.6,45,male,66,115,18.6,135,88,30,34,0.88,No diabetes
+160,82,41,3.9,30,female,63,143,25.3,172,124,33,40,0.83,No diabetes
+155,81,70,2.2,32,female,65,151,25.1,120,68,33,40,0.83,No diabetes
+</table>
+
+
+</tables>
+
+You are already provided with the following functions that you can call:
+<function>
+def execute_sql_query(sql_query: str) -> pd.Dataframe
+    """This method connects to the database, executes the sql query and returns the dataframe"""
+</function>
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot age distribution
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+
+Generate python code and return full updated code:
+
+### Note: Use only relevant table for query and do aggregation, sorting, joins and grouby through sql query
+2025-07-27 16:22:54 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:30:36 [INFO] HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-27 16:30:36 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:30:36 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:30:36 [INFO] Code Generated:
+# TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Write code here
+sql_query = "SELECT Age, COUNT(*) AS count FROM table_predictdm GROUP BY Age"
+df = execute_sql_query(sql_query)
+
+plt.figure(figsize=(10, 6))
+df.plot(kind='bar', x='Age', y='count', legend=False)
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.title('Age Distribution')
+plt.savefig('temp_chart.png')
+plt.close()
+
+# Declare result var: 
+result = {
+    "type": "plot",
+    "value": "temp_chart.png"
+}
+2025-07-27 16:30:36 [INFO] Validating code requirements...
+2025-07-27 16:30:36 [INFO] Code validation successful.
+2025-07-27 16:30:36 [INFO] Cleaning the generated code...
+2025-07-27 16:30:36 [INFO] Executing code: import pandas as pd
+import matplotlib.pyplot as plt
+sql_query = 'SELECT Age, COUNT(*) AS count FROM table_predictdm GROUP BY Age'
+df = execute_sql_query(sql_query)
+plt.figure(figsize=(10, 6))
+df.plot(kind='bar', x='Age', y='count', legend=False)
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.title('Age Distribution')
+plt.savefig('exports/charts/temp_chart_6f37cdde-9bc1-4b79-b1fc-311b0391acf7.png')
+plt.close()
+result = {'type': 'plot', 'value': 'exports/charts/temp_chart_6f37cdde-9bc1-4b79-b1fc-311b0391acf7.png'}
+2025-07-27 16:30:36 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:30:36 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:30:37 [INFO] Response generated successfully.
+2025-07-27 16:30:37 [INFO] Question: Plot glucose vs age with a regression line
+2025-07-27 16:30:37 [INFO] Running PandasAI with litellm LLM...
+2025-07-27 16:30:37 [INFO] Prompt ID: f370f055-afa7-4c75-9379-8a8db0fa596c
+2025-07-27 16:30:37 [INFO] Generating new code...
+2025-07-27 16:30:37 [INFO] Using Prompt: <tables>
+
+<table dialect="duckdb" table_name="table_predictdm" columns="[{"name": "Cholesterol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Glucose", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "HDL Chol", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Chol/HDL ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Age", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Gender", "type": "string", "description": null, "expression": null, "alias": null}, {"name": "Height", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Weight", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "BMI", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Systolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Diastolic BP", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "waist", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "hip", "type": "integer", "description": null, "expression": null, "alias": null}, {"name": "Waist/hip ratio", "type": "float", "description": null, "expression": null, "alias": null}, {"name": "Diabetes", "type": "string", "description": null, "expression": null, "alias": null}]" dimensions="390x15">
+Cholesterol,Glucose,HDL Chol,Chol/HDL ratio,Age,Gender,Height,Weight,BMI,Systolic BP,Diastolic BP,waist,hip,Waist/hip ratio,Diabetes
+194,86,67,2.9,35,male,66,159,25.7,115,64,31,35,0.89,No diabetes
+158,74,64,2.5,30,female,62,142,26.0,108,68,32,34,0.94,No diabetes
+203,71,78,2.6,45,male,66,115,18.6,135,88,30,34,0.88,No diabetes
+160,82,41,3.9,30,female,63,143,25.3,172,124,33,40,0.83,No diabetes
+155,81,70,2.2,32,female,65,151,25.1,120,68,33,40,0.83,No diabetes
+</table>
+
+
+</tables>
+
+You are already provided with the following functions that you can call:
+<function>
+def execute_sql_query(sql_query: str) -> pd.Dataframe
+    """This method connects to the database, executes the sql query and returns the dataframe"""
+</function>
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ Plot glucose vs age with a regression line
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+
+Generate python code and return full updated code:
+
+### Note: Use only relevant table for query and do aggregation, sorting, joins and grouby through sql query
+2025-07-27 16:30:37 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:34:12 [INFO] HTTP Request: POST http://localhost:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-27 16:34:12 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:34:12 [INFO] Code Generated:
+# TODO: import the required dependencies
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Write code here
+df = execute_sql_query("SELECT Glucose, Age FROM table_predictdm")
+sns.regplot(x='Age', y='Glucose', data=df)
+plt.savefig('glucose_age_regression.png')
+plt.close()
+
+# Declare result var: 
+result = {
+    "type": "plot",
+    "value": "glucose_age_regression.png"
+}
+2025-07-27 16:34:12 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:34:12 [INFO] Validating code requirements...
+2025-07-27 16:34:12 [INFO] Code validation successful.
+2025-07-27 16:34:12 [INFO] Cleaning the generated code...
+2025-07-27 16:34:12 [INFO] Executing code: import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+df = execute_sql_query('SELECT Glucose, Age FROM table_predictdm')
+sns.regplot(x='Age', y='Glucose', data=df)
+plt.savefig('exports/charts/temp_chart_e733cdaf-c100-4361-989b-3020b595e759.png')
+plt.close()
+result = {'type': 'plot', 'value': 'exports/charts/temp_chart_e733cdaf-c100-4361-989b-3020b595e759.png'}
+2025-07-27 16:34:12 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:34:12 [INFO] HTTP Request: POST http://localhost:11434/api/show "HTTP/1.1 200 OK"
+2025-07-27 16:34:41 [INFO] Response generated successfully.
