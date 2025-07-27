@@ -280,6 +280,7 @@ Both notebooks use a deidentified diabetes dataset:
 
 ## Additional Resources
 
+- [Notebooks on Colab for Everybody](https://drive.google.com/drive/folders/1HuoRGN4vVJn7Muhj4xHdYjE2YVFjWqlC?usp=drive_link) - More from Dr. Liebovitz
 - [Python for Everybody](https://www.py4e.com/) - Free Python course
 - [Pandas Documentation](https://pandas.pydata.org/docs/) - Data analysis library
 - [VSCode Python Tutorial](https://code.visualstudio.com/docs/python/python-tutorial) - Official guide
